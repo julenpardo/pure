@@ -4,54 +4,44 @@
 
 <img src="screenshot.png" width="864">
 
-
 ## Overview
 
 Most prompts are cluttered, ugly and slow. I wanted something visually pleasing that stayed out of my way.
 
 ### Why?
 
-- Comes with the perfect prompt character.
+* Comes with the perfect prompt character.
   Author went through the whole Unicode range to find it.
-- Shows `git` branch and whether it's dirty (with a `*`).
-- Indicates when you have unpushed/unpulled `git` commits with up/down arrows. *(Check is done asynchronously!)*
-- Prompt character turns red if the last command didn't exit with `0`.
-- Command execution time will be displayed if it exceeds the set threshold.
-- Username and host only displayed when in an SSH session.
-- Shows the current path in the title and the [current folder & command](screenshot-title-cmd.png) when a process is running.
-- Makes an excellent starting point for your own custom prompt.
-
+* Shows `git` branch and whether it's dirty (with a `*`).
+* Indicates when you have unpushed/unpulled `git` commits with up/down arrows. _(Check is done asynchronously!)_
+* Prompt character turns red if the last command didn't exit with `0`.
+* Command execution time will be displayed if it exceeds the set threshold.
+* Username and host only displayed when in an SSH session.
+* Shows the current path in the title and the [current folder & command](screenshot-title-cmd.png) when a process is running.
+* Makes an excellent starting point for your own custom prompt.
 
 ## Install
 
-Can be installed with `npm` or manually. Requires Git 2.0.0+ and ZSH 5.2+. Older versions of ZSH are known to work, but they are **not** recommended.
+Requires Git 2.0.0+ and ZSH 5.2+. Older versions of ZSH are known to work, but they are **not** recommended.
 
-### npm
+1.  Either…
 
-```console
-$ npm install --global pure-prompt
-```
+* Clone this repo
+* add it as a submodule, or
+* just download [`pure.zsh`](pure.zsh) and [`async.zsh`](async.zsh)
 
-That's it. Skip to [Getting started](#getting-started).
+2.  Symlink `pure.zsh` to somewhere in [`$fpath`](http://www.refining-linux.org/archives/46/ZSH-Gem-12-Autoloading-functions/) with the name `prompt_pure_setup`.
 
-### Manually
-
-1. Either…
-  - Clone this repo
-  - add it as a submodule, or
-  - just download [`pure.zsh`](pure.zsh) and [`async.zsh`](async.zsh)
-
-2. Symlink `pure.zsh` to somewhere in [`$fpath`](http://www.refining-linux.org/archives/46/ZSH-Gem-12-Autoloading-functions/) with the name `prompt_pure_setup`.
-
-3. Symlink `async.zsh` in `$fpath` with the name `async`.
+3.  Symlink `async.zsh` in `$fpath` with the name `async`.
 
 #### Example
 
 ```console
-$ ln -s "$PWD/pure.zsh" /usr/local/share/zsh/site-functions/prompt_pure_setup
+$ ln -s "$PWD/pure.zsh" /usr/local/share/zsh/site-functions/prompt_julen_pure_setup
 $ ln -s "$PWD/async.zsh" /usr/local/share/zsh/site-functions/async
 ```
-*Run `echo $fpath` to see possible locations.*
+
+_Run `echo $fpath` to see possible locations._
 
 For a user-specific installation (which would not require escalated privileges), simply add a directory to `$fpath` for that user:
 
@@ -67,7 +57,6 @@ $ ln -s "$PWD/pure.zsh" "$HOME/.zfunctions/prompt_pure_setup"
 $ ln -s "$PWD/async.zsh" "$HOME/.zfunctions/async"
 ```
 
-
 ## Getting started
 
 Initialize the prompt system (if not so already) and choose `pure`:
@@ -75,9 +64,8 @@ Initialize the prompt system (if not so already) and choose `pure`:
 ```sh
 # .zshrc
 autoload -U promptinit; promptinit
-prompt pure
+prompt julen_pure
 ```
-
 
 ## Options
 
@@ -122,25 +110,23 @@ PURE_CMD_MAX_EXEC_TIME=10
 prompt pure
 ```
 
-
 ## Tips
 
 In the screenshot you see Pure running in [Hyper](https://hyper.is) with the [hyper-snazzy](https://github.com/sindresorhus/hyper-snazzy) theme and Menlo font.
 
 The [Tomorrow Night Eighties](https://github.com/chriskempson/tomorrow-theme) theme with the [Droid Sans Mono](https://www.fontsquirrel.com/fonts/droid-sans-mono) font (15pt) is also a [nice combination](https://github.com/sindresorhus/pure/blob/95ee3e7618c6e2162a1e3cdac2a88a20ac3beb27/screenshot.png).<br>
-*Just make sure you have anti-aliasing enabled in your terminal.*
+_Just make sure you have anti-aliasing enabled in your terminal._
 
 To have commands colorized as seen in the screenshot, install [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting).
-
 
 ## Integration
 
 ### [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 
-1. Set `ZSH_THEME=""` in your `.zshrc` to disable oh-my-zsh themes.
-2. Follow the Pure [Install](#install) instructions.
+1.  Set `ZSH_THEME=""` in your `.zshrc` to disable oh-my-zsh themes.
+2.  Follow the Pure [Install](#install) instructions.
 
-**NOTE:** `oh-my-zsh` overrides the prompt so Pure must be activated *after* `source $ZSH/oh-my-zsh.sh`.
+**NOTE:** `oh-my-zsh` overrides the prompt so Pure must be activated _after_ `source $ZSH/oh-my-zsh.sh`.
 
 ### [prezto](https://github.com/sorin-ionescu/prezto)
 
@@ -212,28 +198,18 @@ $ sudo emerge -1 zsh
 
 On a default setup, running the command `kldload pty` should do the trick. If you have a custom kernel, you might need to add `device pty` to the configuration file ([example](https://github.com/nbari/freebsd/blob/58646a9c3c4aaabf6f6467ff505f27f09e29dc75/kernels/xen.kernel#L188)).
 
-
 ## Ports
 
-- **ZSH**
-	- [therealklanni/purity](https://github.com/therealklanni/purity) - More compact current working directory, important details on the main prompt line, and extra Git indicators.
- 	- [intelfx/pure](https://github.com/intelfx/pure) - Solarized-friendly colors, highly verbose, and fully async Git integration.
-	- [dfurnes/purer](https://github.com/dfurnes/purer) - Compact single-line prompt with built-in Vim-mode indicator.
-- **Bash**
-	- [sapegin/dotfiles](https://github.com/sapegin/dotfiles) - [Prompt](https://github.com/sapegin/dotfiles/blob/dd063f9c30de7d2234e8accdb5272a5cc0a3388b/includes/bash_prompt.bash) and [color theme](https://github.com/sapegin/dotfiles/tree/master/color) for Terminal.app.
-- **Fish**
-	- [brandonweiss/pure.fish](https://github.com/brandonweiss/pure.fish) - Pure-inspired prompt for Fish. Not intended to have feature parity.
-	- [rafaelrinaldi/pure](https://github.com/rafaelrinaldi/pure) - Support for bare Fish and various framework ([Oh-My-Fish](https://github.com//oh-my-fish/oh-my-fish), [Fisherman](https://github.com//fisherman/fisherman), and [Wahoo](https://github.com//bucaran/wahoo)).
-- **Rust**
-	- [xcambar/purs](https://github.com/xcambar/purs) - Pure-inspired prompt in Rust.
-
+* **ZSH** - [therealklanni/purity](https://github.com/therealklanni/purity) - More compact current working directory, important details on the main prompt line, and extra Git indicators. - [intelfx/pure](https://github.com/intelfx/pure) - Solarized-friendly colors, highly verbose, and fully async Git integration. - [dfurnes/purer](https://github.com/dfurnes/purer) - Compact single-line prompt with built-in Vim-mode indicator.
+* **Bash** - [sapegin/dotfiles](https://github.com/sapegin/dotfiles) - [Prompt](https://github.com/sapegin/dotfiles/blob/dd063f9c30de7d2234e8accdb5272a5cc0a3388b/includes/bash_prompt.bash) and [color theme](https://github.com/sapegin/dotfiles/tree/master/color) for Terminal.app.
+* **Fish** - [brandonweiss/pure.fish](https://github.com/brandonweiss/pure.fish) - Pure-inspired prompt for Fish. Not intended to have feature parity. - [rafaelrinaldi/pure](https://github.com/rafaelrinaldi/pure) - Support for bare Fish and various framework ([Oh-My-Fish](https://github.com//oh-my-fish/oh-my-fish), [Fisherman](https://github.com//fisherman/fisherman), and [Wahoo](https://github.com//bucaran/wahoo)).
+* **Rust** - [xcambar/purs](https://github.com/xcambar/purs) - Pure-inspired prompt in Rust.
 
 ## Team
 
-[![Sindre Sorhus](https://github.com/sindresorhus.png?size=100)](http://sindresorhus.com) | [![Mathias Fredriksson](https://github.com/mafredri.png?size=100)](https://github.com/mafredri)
----|---
-[Sindre Sorhus](https://github.com/sindresorhus) | [Mathias Fredriksson](https://github.com/mafredri)
-
+| [![Sindre Sorhus](https://github.com/sindresorhus.png?size=100)](http://sindresorhus.com) | [![Mathias Fredriksson](https://github.com/mafredri.png?size=100)](https://github.com/mafredri) |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [Sindre Sorhus](https://github.com/sindresorhus)                                          | [Mathias Fredriksson](https://github.com/mafredri)                                              |
 
 ## License
 
